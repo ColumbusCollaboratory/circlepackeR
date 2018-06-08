@@ -31,10 +31,34 @@ HTMLWidgets.widget({
         .range([x.options.color_min, x.options.color_max])
         .interpolate(d3.interpolateHcl);
 
+    var color_col = null;
+    if(x.options.color_col){
+      color_col = x.options.color_col;
+    }
+
+    var quartileColorCodes = ["rgb(241,238,246,0.3)", "rgb(215,181,216,0.5)", "rgb(221,28,119,0.7)", "rgb(152,0,20,1)"];
+    if(x.options.quartile_colors && x.options.quartile_colors.length == 4){
+      //an array of three colors
+      quartileColorCodes = x.options.quartile_colors;
+    } else if(x.options.quartile_colors && x.options.quartile_colors.length != 4){
+      throw new Error("quartile_colors must be of length 4");
+    }
+
+    var quartileColorValues = [0.25, 0.50, 0.75];
+    if(x.options.quartile_values){
+      //a named numeric list of values for cut offs 25%, 50%, 75%
+      quartileColorValues = [x.options.quartile_values["25%"], x.options.quartile_values["50%"], x.options.quartile_values["75%"]];
+    }
+
+    // Define the div for the tooltip
+    var tooltip = d3.select("body").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+
     var pack = d3.layout.pack()
         .padding(2)
         .size([diameter - margin, diameter - margin])
-        .value(function(d) { return d[x.options.size]; })
+        .value(function(d) { return d[x.options.size]; });
 
     var svg = d3.select(el).append("svg")
         .attr("width", diameter)
@@ -51,9 +75,44 @@ HTMLWidgets.widget({
           .data(nodes)
         .enter().append("circle")
           .attr("class", function(d) { return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; })
-          .style("fill", function(d) { return d.children ? color(d.depth) : null; })
-          .on("click", function(d) { if (focus !== d) zoom(d), d3.event.stopPropagation(); });
+          .style("fill", function(d) {
+            if(color_col){
+              let v = parseFloat(d[color_col]);
+              if(isNaN(v) || v <= quartileColorValues[0]){
+                 return quartileColorCodes[0];
+              }else if(v > quartileColorValues[0] && v <= quartileColorValues[1]){
+                return quartileColorCodes[1];
+              }else if(v > quartileColorValues[1] && v <= quartileColorValues[2]){
+                return quartileColorCodes[2];
+              }
+              return quartileColorCodes[3];
+            } else {
+              return d.children ? color(d.depth) : null;
+            }
 
+          })
+          .on("click", function(d) { if (focus !== d) zoom(d), d3.event.stopPropagation(); })
+          .on("mouseover", function(d) {
+            tooltip.transition()
+                .duration(200)
+                .style("opacity", 0.9);
+            let str = "";
+            for(let prop in d){
+                //show all properties except for parent object and chidlren objects
+                if(prop != "parent" && prop != "children"){
+                  str += prop+"&nbsp;"+(d[prop] + "</br>");
+                }
+            }
+            tooltip.html(str)
+              .style("left", (d3.event.pageX + 28) + "px")
+              .style("top", (d3.event.pageY - 28) + "px");
+          })
+          .on("mouseout", function(d) {
+            tooltip.transition()
+                .duration(500)
+                .style("opacity", 0);
+
+          });
       var text = svg.selectAll("text")
           .data(nodes)
         .enter().append("text")

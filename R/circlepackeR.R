@@ -20,7 +20,7 @@
 #'
 #' @export
 circlepackeR <- function(data, size = "size", color_min = "hsl(152,80%,80%)",
-                         color_max = "hsl(228,30%,40%)", width = NULL, height = NULL) {
+                         color_max = "hsl(228,30%,40%)", width = NULL, height = NULL, color_col = NULL, quartile_values = NULL, quartile_colors = NULL) {
 
   # accept JSON
   if (inherits(data, c("character", "connection", "json"))) {
@@ -48,7 +48,10 @@ circlepackeR <- function(data, size = "size", color_min = "hsl(152,80%,80%)",
     options = list(
       size = size,
       color_min = color_min,
-      color_max = color_max
+      color_max = color_max,
+      color_col = color_col,
+      quartile_colors = quartile_colors,
+      quartile_values = quartile_values
     )
   )
 
