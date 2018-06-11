@@ -12,6 +12,9 @@
   stroke-width: 1.5px;
 }
 
+.node--leaf {
+  fill: white;
+}
 
 .circlepackeR .label {
   font: 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
