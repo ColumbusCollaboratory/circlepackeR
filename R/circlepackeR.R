@@ -13,6 +13,11 @@
 #' @param color_max string representing the maximum value of the color range for the
 #'          circles. The string can be either a hexadecimal, RGB, or HSL color.
 #'          \code{"hsl(228,30\%,40\%)"} is the default.
+#' @param color_col string representing the name of the color variable.  \code{"NULL"} is the default
+#' @param tooltip boolean on whether to display tooltip for each node.  \code{"TRUE"} is the default.
+#' @param tooltip_cols list of node property names to display in the tooltip. The default is to display all properties.
+#' @param quartile_values list of the four quartile values to use as separate colors.
+#' @param quartile_colors list of the four colors to use for the quartile values.
 #'
 #' @example ./inst/examples/example.R
 #'
@@ -20,7 +25,8 @@
 #'
 #' @export
 circlepackeR <- function(data, size = "size", color_min = "hsl(152,80%,80%)",
-                         color_max = "hsl(228,30%,40%)", width = NULL, height = NULL, color_col = NULL, quartile_values = NULL, quartile_colors = NULL) {
+                         color_max = "hsl(228,30%,40%)", width = NULL, height = NULL, color_col = NULL, tooltip = TRUE, tooltip_cols = NULL, quartile_values = NULL, quartile_colors = NULL) {
+
 
   # accept JSON
   if (inherits(data, c("character", "connection", "json"))) {
@@ -51,7 +57,9 @@ circlepackeR <- function(data, size = "size", color_min = "hsl(152,80%,80%)",
       color_max = color_max,
       color_col = color_col,
       quartile_colors = quartile_colors,
-      quartile_values = quartile_values
+      quartile_values = quartile_values,
+      tooltip_cols = tooltip_cols,
+      tooltip = tooltip
     )
   )
 

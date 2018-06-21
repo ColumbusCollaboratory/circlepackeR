@@ -71,6 +71,7 @@ HTMLWidgets.widget({
           nodes = pack.nodes(root),
           view;
 
+
       var circle = svg.selectAll("circle")
           .data(nodes)
         .enter().append("circle")
@@ -91,27 +92,52 @@ HTMLWidgets.widget({
             }
 
           })
-          .on("click", function(d) { if (focus !== d) zoom(d), d3.event.stopPropagation(); })
-          .on("mouseover", function(d) {
-            tooltip.transition()
-                .duration(200)
-                .style("opacity", 0.9);
-            let str = "";
-            for(let prop in d){
-                //show all properties except for parent object and chidlren objects
-                if(prop != "parent" && prop != "children"){
-                  str += prop+"&nbsp;"+(d[prop] + "</br>");
-                }
+          .on("click", function(d) {
+            if (focus !== d) {
+              zoom(d);
+              d3.event.stopPropagation();
             }
-            tooltip.html(str)
-              .style("left", (d3.event.pageX + 28) + "px")
-              .style("top", (d3.event.pageY - 28) + "px");
+            if (HTMLWidgets.shinyMode) {
+              Shiny.onInputChange(el.id + "_clicked", d.node_id);
+            }
+
+          })
+          .on("mouseover", function(d) {
+            if(x.options.tooltip){
+              tooltip.transition()
+                  .duration(200)
+                  .style("opacity", 0.9);
+              let str = "";
+              console.log(x)
+              console.log(x.options)
+              console.log(x.options.tooltips_cols)
+              if(x.options.tooltip_cols){
+                for(let i=0; i< x.options.tooltip_cols.length; i++){
+                  if(d[x.options.tooltip_cols[i]]){
+                    str += x.options.tooltip_cols[i]+"&nbsp;"+(d[x.options.tooltip_cols[i]] + "</br>");
+                  }
+                }
+              }else{
+                for(let prop in d){
+                    //show all properties except for parent object and chidlren objects
+                      if(prop != "parent" && prop != "children"){
+                        str += prop+"&nbsp;"+(d[prop] + "</br>");
+                      }
+                }
+              }
+
+              tooltip.html(str)
+                .style("left", (d3.event.pageX + 28) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
+            }
           })
           .on("mouseout", function(d) {
-            tooltip.transition()
-                .duration(500)
-                .style("opacity", 0);
-
+            console.log(x)
+            if(x.options.tooltip){
+              tooltip.transition()
+                  .duration(500)
+                  .style("opacity", 0);
+            }
           });
       var text = svg.selectAll("text")
           .data(nodes)
