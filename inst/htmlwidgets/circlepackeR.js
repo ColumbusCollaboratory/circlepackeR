@@ -108,9 +108,6 @@ HTMLWidgets.widget({
                   .duration(200)
                   .style("opacity", 0.9);
               let str = "";
-              console.log(x)
-              console.log(x.options)
-              console.log(x.options.tooltips_cols)
               if(x.options.tooltip_cols){
                 for(let i=0; i< x.options.tooltip_cols.length; i++){
                   if(d[x.options.tooltip_cols[i]]){
@@ -132,7 +129,6 @@ HTMLWidgets.widget({
             }
           })
           .on("mouseout", function(d) {
-            console.log(x)
             if(x.options.tooltip){
               tooltip.transition()
                   .duration(500)
