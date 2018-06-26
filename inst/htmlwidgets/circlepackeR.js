@@ -36,7 +36,7 @@ HTMLWidgets.widget({
       color_col = x.options.color_col;
     }
 
-    var quartileColorCodes = ["rgb(241,238,246,0.3)", "rgb(215,181,216,0.5)", "rgb(221,28,119,0.7)", "rgb(152,0,20,1)"];
+    var quartileColorCodes = ["rgba(241,238,246,0.3)", "rgba(215,181,216,0.5)", "rgba(221,28,119,0.7)", "rgba(152,0,20,1)"];
     if(x.options.quartile_colors && x.options.quartile_colors.length == 4){
       //an array of three colors
       quartileColorCodes = x.options.quartile_colors;
@@ -75,30 +75,36 @@ HTMLWidgets.widget({
       var circle = svg.selectAll("circle")
           .data(nodes)
         .enter().append("circle")
-          .attr("class", function(d) { return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; })
           .style("fill", function(d) {
+            fillColor = "";
             if(color_col){
               let v = parseFloat(d[color_col]);
               if(isNaN(v) || v <= quartileColorValues[0]){
-                 return quartileColorCodes[0];
+                 fillColor = quartileColorCodes[0];
               }else if(v > quartileColorValues[0] && v <= quartileColorValues[1]){
-                return quartileColorCodes[1];
+                fillColor = quartileColorCodes[1];
               }else if(v > quartileColorValues[1] && v <= quartileColorValues[2]){
-                return quartileColorCodes[2];
+                fillColor = quartileColorCodes[2];
+              } else {
+                fillColor = quartileColorCodes[3];
               }
-              return quartileColorCodes[3];
-            } else {
-              return d.children ? color(d.depth) : null;
             }
 
+            return fillColor;
+//            } else {
+//              return d.children ? color(d.depth) : null;
+//            }
+
           })
+          .attr("class", function(d) { return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; })
           .on("click", function(d) {
             if (focus !== d) {
               zoom(d);
               d3.event.stopPropagation();
             }
+
             if (HTMLWidgets.shinyMode) {
-              Shiny.onInputChange(el.id + "_clicked", d.node_id);
+              Shiny.onInputChange(el.id + "_clicked", d[x.options.id_col]);
             }
 
           })
