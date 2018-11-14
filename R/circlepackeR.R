@@ -17,7 +17,7 @@
 #' @param tooltip boolean on whether to display tooltip for each node.  \code{"TRUE"} is the default.
 #' @param tooltip_cols list of node property names to display in the tooltip. The default is to display all properties.
 #' @param quartile_values list of the four quartile values to use as separate colors.
-#' @param quartile_colors list of the four colors to use for the quartile values.
+#' @param quartile_colors list of the four colors to use for the quartile values. Those are 0-25%, 25-50%, 50-75% and 75-100%.
 #' @param id_col string representing the name fo the unique identifier column variable \code{"id_col"} is the default
 #'
 #' @example ./inst/examples/example.R
