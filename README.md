@@ -20,7 +20,6 @@ GNI2014$pathString <- paste("world",
 population <- as.Node(GNI2014)
 
 circlepackeR(population, size = "population", color_col="GNI", quartile_values = quantile(GNI2014$GNI))
-
 #@param data data in the form of a hierarchical list
 #@param size string represents the size of the circles
 #For this program, the size of the circle is based on the population of the countries
