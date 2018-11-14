@@ -5,8 +5,6 @@ A big thank you to [timelyportfolio](https://github.com/timelyportfolio) for his
 
 #Below is an example of the Columbus Collaboratory's new and improved circlepackeR
 
-#Documentation done by Sam Harrell
-
 library(circlepackeR)
 
 library(data.tree)
