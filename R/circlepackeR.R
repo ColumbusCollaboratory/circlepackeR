@@ -1,12 +1,12 @@
 #' htmlwidget for d3.js zoomable circle packing visualizations
-#'
+#' #NOTICE: When running this program you might have to click "Show in new window" for it to print to the screen
 #' \href{http://bl.ocks.org/mbostock/7607535}{Circle packing visualizations} provide
 #' an interactive way of exploring hierarchical data that contains elements of different
 #' sizes or magnitudes
 #'
 #' @param data data in the form of a hierarchical list or a nested d3 JSON hierarchy
-#' @param size string representing the name of the size variable.  \code{"size"} is
-#'          the default.
+#' @param size string representing the name of the size variable.\code{"size"} is the default. 
+#' @param size string is what determines the size of the circle        
 #' @param color_min string representing the minimum value of the color range for the
 #'          circles. The string can be either a hexadecimal, RGB, or HSL color.
 #'          \code{"hsl(152,80\%,80\%)"} is the default.
