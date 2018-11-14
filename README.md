@@ -3,8 +3,6 @@ R htmlwidget for circle packing visualization, for more information please visit
 
 A big thank you to [timelyportfolio](https://github.com/timelyportfolio) for his help and major improvements.
 
-================
-
 #Below is an example of the Columbus Collaboratory's new and improved circlepackeR
 #Documentation done by Sam Harrell
 
