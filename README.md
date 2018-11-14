@@ -3,6 +3,7 @@ R htmlwidget for circle packing visualization, for more information please visit
 
 A big thank you to [timelyportfolio](https://github.com/timelyportfolio) for his help and major improvements.
 
+
 #Below is an example of the Columbus Collaboratory's new and improved circlepackeR
 
 #Documentation done by Sam Harrell
@@ -55,4 +56,4 @@ circlepackeR(population, size = "population", color_col="GNI", quartile_values =
 
 #NOTICE: If you hover over the different circles, they tell you a little information about each country.
 
-#By using the Columbus Collaboratory's version of circlepackeR I was able to make a graph that uses color column and quartile values to show something meaninful#
+#By using the Columbus Collaboratory's version of circlepackeR I was able to make a graph that uses color column and quartile values to show something meaningful
