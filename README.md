@@ -43,4 +43,3 @@ circlepackeR(population, size = "population", color_col="GNI", quartile_values =
 #NOTICE: If you hover over the different circles, they tell you a little information about each country.
 #By using the Columbus Collaboratory's version of circlepackeR I was able to make a graph that uses color column and quartile values to show something meaninful#
 #
-#
