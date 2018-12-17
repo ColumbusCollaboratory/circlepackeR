@@ -1,12 +1,11 @@
 #' htmlwidget for d3.js zoomable circle packing visualizations
-#'
+#' #NOTICE: When running this program you might have to click "Show in new window" for it to print to the screen
 #' \href{http://bl.ocks.org/mbostock/7607535}{Circle packing visualizations} provide
 #' an interactive way of exploring hierarchical data that contains elements of different
 #' sizes or magnitudes
 #'
 #' @param data data in the form of a hierarchical list or a nested d3 JSON hierarchy
-#' @param size string representing the name of the size variable.  \code{"size"} is
-#'          the default.
+#' @param size string represents the name of the size variable and what determines the size of the circles.\code{"size"} is the default.      
 #' @param color_min string representing the minimum value of the color range for the
 #'          circles. The string can be either a hexadecimal, RGB, or HSL color.
 #'          \code{"hsl(152,80\%,80\%)"} is the default.
@@ -17,7 +16,7 @@
 #' @param tooltip boolean on whether to display tooltip for each node.  \code{"TRUE"} is the default.
 #' @param tooltip_cols list of node property names to display in the tooltip. The default is to display all properties.
 #' @param quartile_values list of the four quartile values to use as separate colors.
-#' @param quartile_colors list of the four colors to use for the quartile values.
+#' @param quartile_colors list of the four colors to use for the quartile values. Those are 0-25%, 25-50%, 50-75% and 75-100%.
 #' @param id_col string representing the name fo the unique identifier column variable \code{"id_col"} is the default
 #'
 #' @example ./inst/examples/example.R
